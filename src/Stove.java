@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import Burner.Temperature;
+
 /**
  * Stove class. 
  *  
@@ -30,7 +32,15 @@ public class Stove {
 	 **** You must write the following method ****
 	 */
 	public void displayStove() {
-
+		boolean burnerAlert = false;
+		for (Burner burner: burners) {
+			if (burner.display()) {
+				burnerAlert = true;
+			}
+		}
+		if (burnerAlert) {
+			System.out.println("RED LIGHT - HOT BURNER ALERT");
+		}
 	}
 	
 	/**
@@ -79,9 +89,11 @@ public class Stove {
 	 */
 	public void timePassing(int numMinutes) {
 		// Each loop simulates one time unit (e.g., minute)
-		for (int i=0; i<numMinutes; i++)
-			for (Burner burner : burners)
+		for (int i=0; i<numMinutes; i++) {
+			for (Burner burner : burners) {
 				burner.updateTemperature();
+			}
+		}
 	}
 	
 	/**
@@ -92,7 +104,7 @@ public class Stove {
 		Stove stove = new Stove();
 		
 		System.out.println("Beginning stove state ");
-		// trun the burners up
+		// Turn the burners up
 		stove.displayStove();
 		stove.turnBurnersUp();
 		stove.timePassing(6);
